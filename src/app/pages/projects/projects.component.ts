@@ -89,6 +89,15 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Navega al detalle del proyecto.
+   * @param projectId identificador del proyecto
+   * @return promesa de navegación
+   */
+  async goToProjectDetail(projectId: string): Promise<void> {
+    await this.router.navigateByUrl(`/projects/${projectId}`);
+  }
+
+  /**
    * Elimina un proyecto si el usuario confirma la operación.
    * @param projectId identificador del proyecto
    * @return promesa de ejecución

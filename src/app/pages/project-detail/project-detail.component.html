@@ -1,0 +1,63 @@
+<div class="project-detail-page">
+  <div class="page-header">
+    <div>
+      <h1>Detalle del proyecto</h1>
+      <div class="subtitle">Información completa del proyecto seleccionado</div>
+    </div>
+
+    <button class="back-btn" (click)="goBack()">Volver</button>
+  </div>
+
+  @if (loading) {
+    <div class="info-box">Cargando proyecto...</div>
+  }
+
+  @if (!loading && errorMessage) {
+    <div class="error-box">{{ errorMessage }}</div>
+  }
+
+  @if (!loading && !errorMessage && project) {
+    <div class="detail-card">
+      <div class="detail-section">
+        <h2>{{ project.name }}</h2>
+        <div class="description">{{ project.description }}</div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Información general</h3>
+        <div class="detail-row"><strong>Estado:</strong> {{ project.status }}</div>
+        <div class="detail-row"><strong>Creador:</strong> {{ creatorName }}</div>
+        <div class="detail-row"><strong>Fecha de creación:</strong> {{ formatDate(project.createdAt) }}</div>
+        <div class="detail-row"><strong>Número de participantes:</strong> {{ getParticipantCount() }}</div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Tecnologías</h3>
+
+        @if (project.technologies.length > 0) {
+          <div class="tag-list">
+            @for (technology of project.technologies; track technology) {
+              <span class="tag">{{ technology }}</span>
+            }
+          </div>
+        } @else {
+          <div class="empty-text">No hay tecnologías registradas.</div>
+        }
+      </div>
+
+      <div class="detail-section">
+        <h3>Participantes</h3>
+
+        @if (participantNames.length > 0) {
+          <ul class="participant-list">
+            @for (participantName of participantNames; track participantName) {
+              <li>{{ participantName }}</li>
+            }
+          </ul>
+        } @else {
+          <div class="empty-text">No hay participantes registrados.</div>
+        }
+      </div>
+    </div>
+  }
+</div>

@@ -71,9 +71,11 @@
 
 .card-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
+.detail-btn,
 .edit-btn,
 .delete-btn {
   border: none;
