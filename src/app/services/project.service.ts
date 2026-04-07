@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Database, onValue, push, ref } from '@angular/fire/database';
+import { Database, onValue, push, ref, update, remove } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { Project } from '../models/project.model';
 
@@ -93,5 +93,26 @@ export class ProjectService {
     const projectsRef = ref(this.db, 'projects');
     const { id, ...data } = project;
     return push(projectsRef, data);
+  }
+
+  /**
+   * Actualiza un proyecto existente.
+   * @param project proyecto a actualizar
+   * @return promesa de actualización
+   */
+  updateProject(project: Project) {
+    const projectRef = ref(this.db, `projects/${project.id}`);
+    const { id, ...data } = project;
+    return update(projectRef, data);
+  }
+
+  /**
+   * Elimina un proyecto existente.
+   * @param projectId identificador del proyecto
+   * @return promesa de borrado
+   */
+  deleteProject(projectId: string) {
+    const projectRef = ref(this.db, `projects/${projectId}`);
+    return remove(projectRef);
   }
 }

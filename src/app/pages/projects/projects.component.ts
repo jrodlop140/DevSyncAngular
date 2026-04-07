@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { ProjectService } from '../../services/project.service';
@@ -20,6 +21,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   private authService = inject(AuthService);
   private projectService = inject(ProjectService);
+  private router = inject(Router);
 
   projects: Project[] = [];
   loading: boolean = true;
@@ -67,5 +69,13 @@ export class ProjectsComponent implements OnInit, OnDestroy {
    */
   getParticipantCount(project: Project): number {
     return Object.keys(project.participants || {}).length;
+  }
+
+  /**
+   * Navega al formulario de creación de proyecto.
+   * @return promesa de navegación
+   */
+  async goToCreateProject(): Promise<void> {
+    await this.router.navigateByUrl('/projects/new');
   }
 }
