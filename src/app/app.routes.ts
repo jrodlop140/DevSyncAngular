@@ -11,6 +11,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent, canActivate: [authGuard] },
   { path: 'projects/new', component: ProjectFormComponent, canActivate: [authGuard] },
+  { path: 'projects/edit/:id', component: ProjectFormComponent, canActivate: [authGuard] },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

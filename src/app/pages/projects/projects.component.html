@@ -37,6 +37,11 @@
             <div><strong>Participantes:</strong> {{ getParticipantCount(project) }}</div>
             <div><strong>Tecnologías:</strong> {{ project.technologies.join(', ') }}</div>
           </div>
+
+          <div class="card-actions">
+            <button class="edit-btn" (click)="goToEditProject(project.id)">Editar</button>
+            <button class="delete-btn" (click)="deleteProject(project.id)">Eliminar</button>
+          </div>
         </div>
       }
     </div>

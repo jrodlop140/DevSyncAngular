@@ -12,6 +12,12 @@
   color: #666;
 }
 
+.info-box {
+  padding: 16px;
+  border-radius: 12px;
+  background: #eef2ff;
+}
+
 .form-card {
   max-width: 720px;
   background: white;

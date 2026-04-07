@@ -78,4 +78,32 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   async goToCreateProject(): Promise<void> {
     await this.router.navigateByUrl('/projects/new');
   }
+
+  /**
+   * Navega al formulario de edición del proyecto.
+   * @param projectId identificador del proyecto
+   * @return promesa de navegación
+   */
+  async goToEditProject(projectId: string): Promise<void> {
+    await this.router.navigateByUrl(`/projects/edit/${projectId}`);
+  }
+
+  /**
+   * Elimina un proyecto si el usuario confirma la operación.
+   * @param projectId identificador del proyecto
+   * @return promesa de ejecución
+   */
+  async deleteProject(projectId: string): Promise<void> {
+    const confirmed = window.confirm('¿Seguro que deseas eliminar este proyecto?');
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await this.projectService.deleteProject(projectId);
+    } catch {
+      this.errorMessage = 'No se pudo eliminar el proyecto.';
+    }
+  }
 }

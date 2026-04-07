@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Database, onValue, push, ref, update, remove } from '@angular/fire/database';
+import { Database, get, onValue, push, ref, remove, update } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { Project } from '../models/project.model';
 
@@ -82,6 +82,26 @@ export class ProjectService {
 
       return () => unsubscribe();
     });
+  }
+
+  /**
+   * Obtiene un proyecto por su identificador.
+   * @param projectId identificador del proyecto
+   * @return proyecto encontrado o null
+   */
+  async getProjectById(projectId: string): Promise<Project | null> {
+    const projectRef = ref(this.db, `projects/${projectId}`);
+    const snapshot = await get(projectRef);
+
+    if (!snapshot.exists()) {
+      return null;
+    }
+
+    const project = new Project();
+    project.id = snapshot.key ?? '';
+    Object.assign(project, snapshot.val());
+
+    return project;
   }
 
   /**
