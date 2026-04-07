@@ -135,4 +135,17 @@ export class ProjectService {
     const projectRef = ref(this.db, `projects/${projectId}`);
     return remove(projectRef);
   }
+
+  /**
+ * Añade un participante a un proyecto.
+ * @param projectId identificador del proyecto
+ * @param userId identificador del usuario
+ * @return promesa de actualización
+ */
+addParticipantToProject(projectId: string, userId: string) {
+  const participantRef = ref(this.db, `projects/${projectId}/participants`);
+  return update(participantRef, {
+    [userId]: true
+  });
+}
 }

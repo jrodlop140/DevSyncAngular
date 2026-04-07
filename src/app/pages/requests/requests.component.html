@@ -1,0 +1,40 @@
+<div class="requests-page">
+  <div class="page-header">
+    <h1>Solicitudes</h1>
+    <div class="subtitle">Solicitudes de acceso a tus proyectos</div>
+  </div>
+
+  @if (loading) {
+    <div class="info-box">Cargando solicitudes...</div>
+  }
+
+  @if (!loading && errorMessage) {
+    <div class="error-box">{{ errorMessage }}</div>
+  }
+
+  @if (!loading && !errorMessage && requests.length === 0) {
+    <div class="info-box">No hay solicitudes para tus proyectos.</div>
+  }
+
+  @if (!loading && !errorMessage && requests.length > 0) {
+    <div class="request-list">
+      @for (request of requests; track request.id) {
+        <div class="request-card">
+          <div class="request-main">
+            <h2>{{ getProjectName(request.projectId) }}</h2>
+            <div><strong>Solicitante:</strong> {{ getUserName(request.developerId) }}</div>
+            <div><strong>Estado:</strong> {{ request.state }}</div>
+            <div><strong>Fecha:</strong> {{ formatDate(request.createdAt) }}</div>
+          </div>
+
+          @if (isPending(request)) {
+            <div class="card-actions">
+              <button class="accept-btn" (click)="acceptRequest(request)">Aceptar</button>
+              <button class="reject-btn" (click)="rejectRequest(request)">Rechazar</button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>
