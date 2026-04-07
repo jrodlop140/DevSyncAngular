@@ -1,2 +1,38 @@
-<h1>Proyectos</h1>
-<div>Login correcto. Aquí irá el listado de proyectos.</div>
+<div class="projects-page">
+  <div class="page-header">
+    <h1>Mis proyectos</h1>
+    <div class="subtitle">Proyectos creados por el usuario autenticado</div>
+  </div>
+
+  @if (loading) {
+    <div class="info-box">Cargando proyectos...</div>
+  }
+
+  @if (!loading && errorMessage) {
+    <div class="error-box">{{ errorMessage }}</div>
+  }
+
+  @if (!loading && !errorMessage && projects.length === 0) {
+    <div class="info-box">Todavía no has creado ningún proyecto.</div>
+  }
+
+  @if (!loading && !errorMessage && projects.length > 0) {
+    <div class="project-grid">
+      @for (project of projects; track project.id) {
+        <div class="project-card">
+          <h2>{{ project.name }}</h2>
+
+          <div class="project-description">
+            {{ project.description }}
+          </div>
+
+          <div class="project-meta">
+            <div><strong>Estado:</strong> {{ project.status }}</div>
+            <div><strong>Participantes:</strong> {{ getParticipantCount(project) }}</div>
+            <div><strong>Tecnologías:</strong> {{ project.technologies.join(', ') }}</div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

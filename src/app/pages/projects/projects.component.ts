@@ -1,13 +1,71 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { ProjectService } from '../../services/project.service';
+import { Project } from '../../models/project.model';
 
 /**
- * Página provisional de proyectos.
- * Se usa para comprobar que el login y la navegación funcionan.
+ * Página de proyectos.
+ * Muestra los proyectos creados por el usuario autenticado.
  */
 @Component({
   selector: 'app-projects',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })
-export class ProjectsComponent {}
+export class ProjectsComponent implements OnInit, OnDestroy {
+
+  private authService = inject(AuthService);
+  private projectService = inject(ProjectService);
+
+  projects: Project[] = [];
+  loading: boolean = true;
+  errorMessage: string = '';
+
+  private subscription?: Subscription;
+
+  /**
+   * Inicializa la carga de proyectos del usuario autenticado.
+   */
+  ngOnInit(): void {
+    const currentUser = this.authService.getCurrentUser();
+
+    if (!currentUser) {
+      this.loading = false;
+      this.errorMessage = 'No hay usuario autenticado.';
+      return;
+    }
+
+    this.subscription = this.projectService
+      .getProjectsByCreator(currentUser.uid)
+      .subscribe({
+        next: (projects) => {
+          this.projects = projects;
+          this.loading = false;
+        },
+        error: () => {
+          this.errorMessage = 'No se pudieron cargar los proyectos.';
+          this.loading = false;
+        }
+      });
+  }
+
+  /**
+   * Libera la suscripción al destruir el componente.
+   */
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
+  /**
+   * Obtiene el número de participantes de un proyecto.
+   * @param project proyecto a consultar
+   * @return número de participantes
+   */
+  getParticipantCount(project: Project): number {
+    return Object.keys(project.participants || {}).length;
+  }
+}

@@ -19,7 +19,8 @@ export const appConfig: ApplicationConfig = {
         storageBucket: 'devsync-c618f.firebasestorage.app',
         apiKey: 'AIzaSyCEuFU-HY9GrICb4Gob5STtYuBddsS4Hug',
         authDomain: 'devsync-c618f.firebaseapp.com',
-        messagingSenderId: '363842488352'
+        messagingSenderId: '363842488352',
+        databaseURL: "https://devsync-c618f-default-rtdb.europe-west1.firebasedatabase.app"
       })
     ),
 
