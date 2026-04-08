@@ -1,2 +1,45 @@
-<h1>Tareas</h1>
-<div>Aquí irá la gestión de tareas del proyecto.</div>
+<div class="tasks-page">
+  <div class="page-header">
+    <div>
+      <h1>Tareas</h1>
+      <div class="subtitle">Tareas asociadas a tus proyectos</div>
+    </div>
+
+    <button class="new-task-btn" (click)="goToCreateTask()">
+      Nueva tarea
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="info-box">Cargando tareas...</div>
+  }
+
+  @if (!loading && errorMessage) {
+    <div class="error-box">{{ errorMessage }}</div>
+  }
+
+  @if (!loading && !errorMessage && tasks.length === 0) {
+    <div class="info-box">No hay tareas en tus proyectos.</div>
+  }
+
+  @if (!loading && !errorMessage && tasks.length > 0) {
+    <div class="task-grid">
+      @for (task of tasks; track task.id) {
+        <div class="task-card">
+          <h2>{{ task.title }}</h2>
+
+          <div class="task-description">
+            {{ task.description }}
+          </div>
+
+          <div class="task-meta">
+            <div><strong>Proyecto:</strong> {{ getProjectName(task.projectId) }}</div>
+            <div><strong>Asignado a:</strong> {{ getUserName(task.assignedDeveloper) }}</div>
+            <div><strong>Estado:</strong> {{ task.status }}</div>
+            <div><strong>Fecha:</strong> {{ formatDate(task.createdAt) }}</div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
