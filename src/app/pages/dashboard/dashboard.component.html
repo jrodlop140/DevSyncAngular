@@ -1,2 +1,74 @@
-<h1>Dashboard</h1>
-<div>Aquí irá el resumen general del panel.</div>
+<div class="dashboard-page">
+  <div class="page-header">
+    <h1>Dashboard</h1>
+    <div class="subtitle">Resumen general del panel de gestión</div>
+  </div>
+
+  @if (loading) {
+    <div class="info-box">Cargando estadísticas...</div>
+  }
+
+  @if (!loading && errorMessage) {
+    <div class="error-box">{{ errorMessage }}</div>
+  }
+
+  @if (!loading && !errorMessage) {
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <h2>Proyectos</h2>
+        <div class="stat-value">{{ totalProjects }}</div>
+        <div class="stat-label">Total de proyectos creados</div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Solicitudes</h2>
+        <div class="stat-value">{{ totalRequests }}</div>
+        <div class="stat-label">Solicitudes totales</div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Solicitudes pendientes</h2>
+        <div class="stat-value">{{ pendingRequests }}</div>
+        <div class="stat-label">Pendientes de revisión</div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Solicitudes aceptadas</h2>
+        <div class="stat-value">{{ acceptedRequests }}</div>
+        <div class="stat-label">Solicitudes aprobadas</div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Solicitudes rechazadas</h2>
+        <div class="stat-value">{{ rejectedRequests }}</div>
+        <div class="stat-label">Solicitudes denegadas</div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Tareas</h2>
+        <div class="stat-value">{{ totalTasks }}</div>
+        <div class="stat-label">Tareas totales</div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Tareas pendientes</h2>
+        <div class="stat-value">{{ pendingTasks }}</div>
+        <div class="stat-label">Aún no iniciadas</div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Tareas en progreso</h2>
+        <div class="stat-value">{{ inProgressTasks }}</div>
+        <div class="stat-label">Actualmente activas</div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Tareas completadas</h2>
+        <div class="stat-value">{{ doneTasks }}</div>
+        <div class="stat-label">Finalizadas correctamente</div>
+      </div>
+
+    </div>
+  }
+</div>
