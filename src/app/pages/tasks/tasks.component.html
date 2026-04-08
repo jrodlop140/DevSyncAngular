@@ -26,21 +26,37 @@
     <div class="task-grid">
       @for (task of tasks; track task.id) {
         <div class="task-card">
-          <h2>{{ task.title }}</h2>
+          <div class="task-card-header">
+            <h2>{{ task.title }}</h2>
+            <span class="status-badge" [ngClass]="getStatusClass(task)">
+              {{ task.status }}
+            </span>
+          </div>
 
           <div class="task-description">
             {{ task.description }}
-          </div>
-          <div class="task-actions">
-            <button (click)="editTask(task.id)">✏️ Editar</button>
-            <button (click)="deleteTask(task.id)">🗑️ Eliminar</button>
           </div>
 
           <div class="task-meta">
             <div><strong>Proyecto:</strong> {{ getProjectName(task.projectId) }}</div>
             <div><strong>Asignado a:</strong> {{ getUserName(task.assignedDeveloper) }}</div>
-            <div><strong>Estado:</strong> {{ task.status }}</div>
             <div><strong>Fecha:</strong> {{ formatDate(task.createdAt) }}</div>
+          </div>
+
+          <div class="task-actions">
+            @if (canAdvanceStatus(task)) {
+              <button class="status-action-btn" (click)="advanceTaskStatus(task)">
+                {{ getStatusActionLabel(task) }}
+              </button>
+            }
+
+            <button class="edit-btn" (click)="editTask(task.id)">
+              ✏️ Editar
+            </button>
+
+            <button class="delete-btn" (click)="deleteTask(task.id)">
+              🗑️ Eliminar
+            </button>
           </div>
         </div>
       }

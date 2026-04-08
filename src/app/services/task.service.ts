@@ -61,49 +61,74 @@ export class TaskService {
     });
   }
 
-    /**
- * Obtiene una tarea por su id.
- *
- * @param taskId identificador de la tarea
- * @return tarea o null
- */
-async getTaskById(taskId: string): Promise<Task | null> {
-  const taskRef = ref(this.db, `tasks/${taskId}`);
-  const snapshot = await get(taskRef);
+  /**
+   * Obtiene una tarea concreta a partir de su identificador.
+   *
+   * Este método se utiliza principalmente en el formulario de edición,
+   * donde es necesario recuperar una única tarea y cargar sus datos
+   * iniciales en el formulario reactivo.
+   *
+   * @param taskId identificador de la tarea
+   * @return promesa con la tarea encontrada o null si no existe
+   */
+  async getTaskById(taskId: string): Promise<Task | null> {
+    const taskRef = ref(this.db, `tasks/${taskId}`);
+    const snapshot = await get(taskRef);
 
-  if (!snapshot.exists()) {
-    return null;
+    if (!snapshot.exists()) {
+      return null;
+    }
+
+    const task = new Task();
+    task.id = snapshot.key ?? '';
+    Object.assign(task, snapshot.val());
+
+    return task;
   }
 
-  const task = new Task();
-  task.id = snapshot.key ?? '';
-  Object.assign(task, snapshot.val());
+  /**
+   * Actualiza una tarea existente.
+   *
+   * Este método sobrescribe los campos de la tarea ya almacenada
+   * en Firebase manteniendo su mismo identificador.
+   *
+   * @param task tarea con la nueva información
+   * @return promesa de actualización
+   */
+  updateTask(task: Task) {
+    const taskRef = ref(this.db, `tasks/${task.id}`);
+    const { id, ...data } = task;
+    return update(taskRef, data);
+  }
 
-  return task;
-}
+  /**
+   * Actualiza únicamente el estado de una tarea.
+   *
+   * Este método resulta útil cuando queremos aplicar transiciones
+   * simples de estado sin reenviar todos los campos de la tarea.
+   *
+   * Se utiliza, por ejemplo, en el listado del panel para avanzar
+   * una tarea de PENDING a IN_PROGRESS o de IN_PROGRESS a DONE.
+   *
+   * @param taskId identificador de la tarea
+   * @param status nuevo estado que se desea guardar
+   * @return promesa de actualización
+   */
+  updateTaskStatus(taskId: string, status: string) {
+    const taskRef = ref(this.db, `tasks/${taskId}`);
+    return update(taskRef, { status });
+  }
 
-/**
- * Actualiza una tarea existente.
- *
- * @param task tarea a actualizar
- * @return promesa de actualización
- */
-updateTask(task: Task) {
-  const taskRef = ref(this.db, `tasks/${task.id}`);
-  const { id, ...data } = task;
-  return update(taskRef, data);
-}
-
-/**
- * Elimina una tarea.
- *
- * @param taskId id de la tarea
- * @return promesa de borrado
- */
-deleteTask(taskId: string) {
-  const taskRef = ref(this.db, `tasks/${taskId}`);
-  return remove(taskRef);
-}
+  /**
+   * Elimina una tarea de Firebase.
+   *
+   * @param taskId identificador de la tarea a eliminar
+   * @return promesa de borrado
+   */
+  deleteTask(taskId: string) {
+    const taskRef = ref(this.db, `tasks/${taskId}`);
+    return remove(taskRef);
+  }
 
   /**
    * Crea una nueva tarea en Firebase.

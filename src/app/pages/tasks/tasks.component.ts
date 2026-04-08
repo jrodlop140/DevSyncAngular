@@ -7,6 +7,7 @@ import { ProjectService } from '../../services/project.service';
 import { TaskService } from '../../services/task.service';
 import { UserService } from '../../services/user.service';
 import { Task } from '../../models/task.model';
+import { TaskStatus } from '../../enums/task-status.enum';
 
 /**
  * Componente encargado de mostrar el listado de tareas del panel.
@@ -49,7 +50,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
   /**
    * Router de Angular.
-   * Se utilizará para navegar al formulario de creación de tareas.
+   * Se utilizará para navegar al formulario de creación y edición de tareas.
    */
   private router = inject(Router);
 
@@ -221,6 +222,131 @@ export class TasksComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Navega al formulario de edición de una tarea concreta.
+   *
+   * Este método redirige al formulario reutilizable de tareas
+   * pasándole el identificador de la tarea en la URL para que
+   * el componente cargue sus datos y permita modificarlos.
+   *
+   * @param taskId identificador de la tarea que se desea editar
+   * @return promesa de navegación
+   */
+  async editTask(taskId: string): Promise<void> {
+    await this.router.navigateByUrl(`/tasks/edit/${taskId}`);
+  }
+
+  /**
+   * Elimina una tarea existente.
+   *
+   * Antes de realizar el borrado, solicita confirmación al usuario
+   * para evitar eliminaciones accidentales.
+   *
+   * Si se produce un error durante la operación, se muestra un mensaje
+   * de error en la interfaz.
+   *
+   * @param taskId identificador de la tarea que se desea eliminar
+   * @return promesa de ejecución
+   */
+  async deleteTask(taskId: string): Promise<void> {
+    if (!confirm('¿Eliminar esta tarea?')) {
+      return;
+    }
+
+    try {
+      await this.taskService.deleteTask(taskId);
+    } catch {
+      this.errorMessage = 'No se pudo eliminar la tarea.';
+    }
+  }
+
+  /**
+   * Indica si una tarea puede avanzar de estado.
+   *
+   * Una tarea puede avanzar si todavía no se encuentra finalizada.
+   * Si está en estado DONE, no se mostrará el botón de cambio.
+   *
+   * @param task tarea a comprobar
+   * @return true si la tarea puede cambiar de estado
+   */
+  canAdvanceStatus(task: Task): boolean {
+    return task.status !== TaskStatus.DONE;
+  }
+
+  /**
+   * Devuelve el texto que debe mostrarse en el botón dinámico
+   * de cambio de estado.
+   *
+   * Lógica:
+   * - PENDING -> "Empezar"
+   * - IN_PROGRESS -> "Completar"
+   * - DONE -> ""
+   *
+   * @param task tarea a consultar
+   * @return texto del botón según el estado actual
+   */
+  getStatusActionLabel(task: Task): string {
+    if (task.status === TaskStatus.PENDING) {
+      return 'Empezar';
+    }
+
+    if (task.status === TaskStatus.IN_PROGRESS) {
+      return 'Completar';
+    }
+
+    return '';
+  }
+
+  /**
+   * Avanza la tarea al siguiente estado.
+   *
+   * Flujo aplicado:
+   * - PENDING -> IN_PROGRESS
+   * - IN_PROGRESS -> DONE
+   * - DONE -> no cambia
+   *
+   * Este comportamiento replica la lógica definida previamente
+   * en la aplicación Android para mantener coherencia entre clientes.
+   *
+   * @param task tarea cuyo estado se desea actualizar
+   * @return promesa de ejecución
+   */
+  async advanceTaskStatus(task: Task): Promise<void> {
+    try {
+      if (task.status === TaskStatus.PENDING) {
+        await this.taskService.updateTaskStatus(task.id, TaskStatus.IN_PROGRESS);
+        return;
+      }
+
+      if (task.status === TaskStatus.IN_PROGRESS) {
+        await this.taskService.updateTaskStatus(task.id, TaskStatus.DONE);
+      }
+    } catch {
+      this.errorMessage = 'No se pudo actualizar el estado de la tarea.';
+    }
+  }
+
+  /**
+   * Devuelve la clase CSS asociada al estado de una tarea.
+   *
+   * Esta clase se utiliza para aplicar estilos visuales distintos
+   * al badge del estado y mejorar la legibilidad de la interfaz.
+   *
+   * @param task tarea cuyo estado se quiere representar visualmente
+   * @return nombre de la clase CSS correspondiente
+   */
+  getStatusClass(task: Task): string {
+    if (task.status === TaskStatus.PENDING) {
+      return 'status-pending';
+    }
+
+    if (task.status === TaskStatus.IN_PROGRESS) {
+      return 'status-in-progress';
+    }
+
+    return 'status-done';
+  }
+
+  /**
    * Hook de destrucción del componente.
    *
    * Libera las suscripciones activas para evitar fugas de memoria.
@@ -229,26 +355,4 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.tasksSubscription?.unsubscribe();
     this.projectsSubscription?.unsubscribe();
   }
-
-  /**
- * Navega al formulario de edición.
- */
-async editTask(taskId: string): Promise<void> {
-  await this.router.navigateByUrl(`/tasks/edit/${taskId}`);
-}
-
-/**
- * Elimina una tarea.
- */
-async deleteTask(taskId: string): Promise<void> {
-  if (!confirm('¿Eliminar esta tarea?')) {
-    return;
-  }
-
-  try {
-    await this.taskService.deleteTask(taskId);
-  } catch {
-    this.errorMessage = 'No se pudo eliminar la tarea.';
-  }
-}
 }

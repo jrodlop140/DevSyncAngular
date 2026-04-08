@@ -50,15 +50,24 @@
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
 }
 
 .task-card h2 {
-  margin: 0 0 12px;
+  margin: 0;
 }
 
 .task-description {
   color: #444;
-  margin-bottom: 16px;
   line-height: 1.5;
 }
 
@@ -68,16 +77,43 @@
   gap: 8px;
 }
 
+.status-badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-pending {
+  background: #fff4cc;
+  color: #7a5d00;
+}
+
+.status-in-progress {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-done {
+  background: #dcfce7;
+  color: #15803d;
+}
+
 .task-actions {
-  margin-top: 16px;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  margin-top: auto;
 }
 
 .task-actions button {
   border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
+  border-radius: 10px;
+  padding: 10px 14px;
   cursor: pointer;
 }
 
+.status-action-btn {
+  font-weight: 600;
+}
