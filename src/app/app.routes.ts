@@ -8,6 +8,7 @@ import { ProjectFormComponent } from './pages/project-form/project-form.componen
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { RequestsComponent } from './pages/requests/requests.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
+import { TaskFormComponent } from './pages/task-form/task-form.component';
 
 /**
  * Configuración principal de rutas de la aplicación.
@@ -27,6 +28,7 @@ export const routes: Routes = [
       { path: 'projects/:id', component: ProjectDetailComponent },
       { path: 'requests', component: RequestsComponent },
       { path: 'tasks', component: TasksComponent },
+      { path: 'tasks/new', component: TaskFormComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

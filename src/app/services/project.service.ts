@@ -105,6 +105,35 @@ export class ProjectService {
   }
 
   /**
+   * Obtiene los proyectos creados por un usuario una sola vez.
+   *
+   * Este método es útil para formularios, donde no necesitamos
+   * una suscripción en tiempo real.
+   *
+   * @param userId identificador del usuario creador
+   * @return promesa con la lista de proyectos
+   */
+  async getProjectsByCreatorOnce(userId: string): Promise<Project[]> {
+    const projectsRef = ref(this.db, 'projects');
+    const snapshot = await get(projectsRef);
+
+    if (!snapshot.exists()) {
+      return [];
+    }
+
+    const data = snapshot.val();
+
+    return Object.entries(data)
+      .map(([id, value]) => {
+        const project = new Project();
+        project.id = id;
+        Object.assign(project, value);
+        return project;
+      })
+      .filter(project => project.creator === userId);
+  }
+
+  /**
    * Crea un nuevo proyecto en Firebase.
    * @param project proyecto a crear
    * @return promesa de creación
