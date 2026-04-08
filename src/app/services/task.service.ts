@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Database, onValue, push, ref } from '@angular/fire/database';
+import { Database, get, onValue, push, ref, remove, update } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { Task } from '../models/task.model';
 
@@ -60,6 +60,50 @@ export class TaskService {
       return () => unsubscribe();
     });
   }
+
+    /**
+ * Obtiene una tarea por su id.
+ *
+ * @param taskId identificador de la tarea
+ * @return tarea o null
+ */
+async getTaskById(taskId: string): Promise<Task | null> {
+  const taskRef = ref(this.db, `tasks/${taskId}`);
+  const snapshot = await get(taskRef);
+
+  if (!snapshot.exists()) {
+    return null;
+  }
+
+  const task = new Task();
+  task.id = snapshot.key ?? '';
+  Object.assign(task, snapshot.val());
+
+  return task;
+}
+
+/**
+ * Actualiza una tarea existente.
+ *
+ * @param task tarea a actualizar
+ * @return promesa de actualización
+ */
+updateTask(task: Task) {
+  const taskRef = ref(this.db, `tasks/${task.id}`);
+  const { id, ...data } = task;
+  return update(taskRef, data);
+}
+
+/**
+ * Elimina una tarea.
+ *
+ * @param taskId id de la tarea
+ * @return promesa de borrado
+ */
+deleteTask(taskId: string) {
+  const taskRef = ref(this.db, `tasks/${taskId}`);
+  return remove(taskRef);
+}
 
   /**
    * Crea una nueva tarea en Firebase.

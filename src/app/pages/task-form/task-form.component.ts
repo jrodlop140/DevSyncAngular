@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ProjectService } from '../../services/project.service';
 import { TaskService } from '../../services/task.service';
@@ -64,6 +64,17 @@ export class TaskFormComponent implements OnInit {
   participantNames: Record<string, string> = {};
 
   /**
+   * Referencia a la ruta activa para obtener parámetros (en caso de edición).
+   */
+  private route = inject(ActivatedRoute);
+
+  /**
+   * Indica si el componente se está utilizando para editar una tarea existente.
+   */
+  isEditMode: boolean = false;  
+  taskId: string | null = null;
+
+  /**
    * Formulario reactivo para crear una tarea.
    */
   taskForm = this.fb.group({
@@ -79,22 +90,33 @@ export class TaskFormComponent implements OnInit {
    * @return promesa de ejecución
    */
   async ngOnInit(): Promise<void> {
-    const currentUser = this.authService.getCurrentUser();
+  const currentUser = this.authService.getCurrentUser();
 
-    if (!currentUser) {
-      this.loadingProjects = false;
-      this.errorMessage = 'No hay usuario autenticado.';
-      return;
-    }
-
-    try {
-      this.projects = await this.projectService.getProjectsByCreatorOnce(currentUser.uid);
-    } catch {
-      this.errorMessage = 'No se pudieron cargar los proyectos.';
-    } finally {
-      this.loadingProjects = false;
-    }
+  if (!currentUser) {
+    this.loadingProjects = false;
+    this.errorMessage = 'No hay usuario autenticado.';
+    return;
   }
+
+  this.taskId = this.route.snapshot.paramMap.get('id');
+
+  if (this.taskId) {
+    this.isEditMode = true;
+  }
+
+  try {
+    this.projects = await this.projectService.getProjectsByCreatorOnce(currentUser.uid);
+
+    if (this.isEditMode && this.taskId) {
+      await this.loadTaskData(this.taskId);
+    }
+
+  } catch {
+    this.errorMessage = 'Error al cargar datos.';
+  } finally {
+    this.loadingProjects = false;
+  }
+}
 
   /**
    * Se ejecuta al cambiar el proyecto seleccionado.
@@ -154,34 +176,72 @@ export class TaskFormComponent implements OnInit {
    * @return promesa de ejecución
    */
   async onSubmit(): Promise<void> {
-    if (this.taskForm.invalid) {
-      this.taskForm.markAllAsTouched();
-      return;
-    }
+  if (this.taskForm.invalid) {
+    this.taskForm.markAllAsTouched();
+    return;
+  }
 
-    const { title, description, projectId, assignedDeveloper } = this.taskForm.getRawValue();
+  const { title, description, projectId, assignedDeveloper } = this.taskForm.getRawValue();
 
-    const task = new Task();
-    task.title = title!.trim();
-    task.description = description!.trim();
-    task.projectId = projectId!;
-    task.assignedDeveloper = assignedDeveloper!;
-    task.status = TaskStatus.PENDING;
+  const task = new Task();
+
+  task.title = title!.trim();
+  task.description = description!.trim();
+  task.projectId = projectId!;
+  task.assignedDeveloper = assignedDeveloper!;
+
+  if (this.isEditMode && this.taskId) {
+    task.id = this.taskId;
+  } else {
     task.createdAt = Date.now();
     task.creationDate = new Date().toLocaleDateString('es-ES');
-
-    try {
-      this.loading = true;
-      this.errorMessage = '';
-
-      await this.taskService.createTask(task);
-      await this.router.navigateByUrl('/tasks');
-    } catch {
-      this.errorMessage = 'No se pudo crear la tarea.';
-    } finally {
-      this.loading = false;
-    }
   }
+
+  try {
+    this.loading = true;
+
+    if (this.isEditMode) {
+      await this.taskService.updateTask(task);
+    } else {
+      await this.taskService.createTask(task);
+    }
+
+    await this.router.navigateByUrl('/tasks');
+
+  } catch {
+    this.errorMessage = 'Error al guardar la tarea.';
+  } finally {
+    this.loading = false;
+  }
+}
+
+  /**
+ * Carga los datos de una tarea existente en el formulario.
+ *
+ * @param taskId id de la tarea
+ */
+async loadTaskData(taskId: string): Promise<void> {
+  const task = await this.taskService.getTaskById(taskId);
+
+  if (!task) {
+    this.errorMessage = 'La tarea no existe.';
+    return;
+  }
+
+  this.taskForm.patchValue({
+    title: task.title,
+    description: task.description,
+    projectId: task.projectId,
+    assignedDeveloper: task.assignedDeveloper
+  });
+
+  const project = this.projects.find(p => p.id === task.projectId);
+
+  if (project) {
+    this.availableParticipants = Object.keys(project.participants || {});
+    await this.loadParticipantNames();
+  }
+}
 
   /**
    * Cancela la creación y vuelve al listado de tareas.

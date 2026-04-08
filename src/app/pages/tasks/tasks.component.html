@@ -31,6 +31,10 @@
           <div class="task-description">
             {{ task.description }}
           </div>
+          <div class="task-actions">
+            <button (click)="editTask(task.id)">✏️ Editar</button>
+            <button (click)="deleteTask(task.id)">🗑️ Eliminar</button>
+          </div>
 
           <div class="task-meta">
             <div><strong>Proyecto:</strong> {{ getProjectName(task.projectId) }}</div>

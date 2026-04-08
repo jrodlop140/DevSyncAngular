@@ -29,6 +29,7 @@ export const routes: Routes = [
       { path: 'requests', component: RequestsComponent },
       { path: 'tasks', component: TasksComponent },
       { path: 'tasks/new', component: TaskFormComponent },
+      { path: 'tasks/edit/:id', component: TaskFormComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
     ]
   },

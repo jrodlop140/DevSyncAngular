@@ -229,4 +229,26 @@ export class TasksComponent implements OnInit, OnDestroy {
     this.tasksSubscription?.unsubscribe();
     this.projectsSubscription?.unsubscribe();
   }
+
+  /**
+ * Navega al formulario de edición.
+ */
+async editTask(taskId: string): Promise<void> {
+  await this.router.navigateByUrl(`/tasks/edit/${taskId}`);
+}
+
+/**
+ * Elimina una tarea.
+ */
+async deleteTask(taskId: string): Promise<void> {
+  if (!confirm('¿Eliminar esta tarea?')) {
+    return;
+  }
+
+  try {
+    await this.taskService.deleteTask(taskId);
+  } catch {
+    this.errorMessage = 'No se pudo eliminar la tarea.';
+  }
+}
 }
