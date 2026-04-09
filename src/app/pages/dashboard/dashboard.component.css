@@ -8,23 +8,6 @@
   margin: 0 0 8px;
 }
 
-.subtitle {
-  color: #666;
-}
-
-.info-box {
-  padding: 16px;
-  border-radius: 12px;
-  background: #eef2ff;
-}
-
-.error-box {
-  padding: 16px;
-  border-radius: 12px;
-  background: #fdecea;
-  color: #b3261e;
-}
-
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -32,10 +15,8 @@
 }
 
 .stat-card {
-  background: white;
-  border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  min-height: 170px;
 }
 
 .stat-card h2 {
@@ -47,9 +28,26 @@
   font-size: 36px;
   font-weight: 700;
   margin-bottom: 8px;
+  letter-spacing: -0.03em;
 }
 
 .stat-label {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 14px;
+}
+
+.accent-info {
+  box-shadow: var(--shadow-md), inset 4px 0 0 var(--primary-500);
+}
+
+.accent-success {
+  box-shadow: var(--shadow-md), inset 4px 0 0 var(--success-600);
+}
+
+.accent-danger {
+  box-shadow: var(--shadow-md), inset 4px 0 0 var(--danger-600);
+}
+
+.accent-warning {
+  box-shadow: var(--shadow-md), inset 4px 0 0 #eab308;
 }

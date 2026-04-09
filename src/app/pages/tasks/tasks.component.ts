@@ -107,7 +107,7 @@ export class TasksComponent implements OnInit, OnDestroy {
 
     if (!currentUser) {
       this.loading = false;
-      this.errorMessage = 'No hay usuario autenticado.';
+      this.errorMessage = 'No authenticated user.';
       return;
     }
 
@@ -126,7 +126,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'No se pudieron cargar los proyectos.';
+          this.errorMessage = 'Could not load los proyectos.';
         }
       });
   }
@@ -150,7 +150,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'No se pudieron cargar las tareas.';
+          this.errorMessage = 'Could not load las tareas.';
         }
       });
   }
@@ -248,14 +248,14 @@ export class TasksComponent implements OnInit, OnDestroy {
    * @return promesa de ejecución
    */
   async deleteTask(taskId: string): Promise<void> {
-    if (!confirm('¿Eliminar esta tarea?')) {
+    if (!confirm('¿Delete esta tarea?')) {
       return;
     }
 
     try {
       await this.taskService.deleteTask(taskId);
     } catch {
-      this.errorMessage = 'No se pudo eliminar la tarea.';
+      this.errorMessage = 'Could not delete task.';
     }
   }
 

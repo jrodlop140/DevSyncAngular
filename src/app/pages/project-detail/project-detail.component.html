@@ -9,7 +9,7 @@
   </div>
 
   @if (loading) {
-    <div class="info-box">Cargando proyecto...</div>
+    <div class="info-box">Loading proyecto...</div>
   }
 
   @if (!loading && errorMessage) {
@@ -25,14 +25,14 @@
 
       <div class="detail-section">
         <h3>Información general</h3>
-        <div class="detail-row"><strong>Estado:</strong> {{ project.status }}</div>
+        <div class="detail-row"><strong>Status:</strong> {{ project.status }}</div>
         <div class="detail-row"><strong>Creador:</strong> {{ creatorName }}</div>
         <div class="detail-row"><strong>Fecha de creación:</strong> {{ formatDate(project.createdAt) }}</div>
         <div class="detail-row"><strong>Número de participantes:</strong> {{ getParticipantCount() }}</div>
       </div>
 
       <div class="detail-section">
-        <h3>Tecnologías</h3>
+        <h3>Technologies</h3>
 
         @if (project.technologies.length > 0) {
           <div class="tag-list">
@@ -46,7 +46,7 @@
       </div>
 
       <div class="detail-section">
-        <h3>Participantes</h3>
+        <h3>Participants</h3>
 
         @if (participantNames.length > 0) {
           <ul class="participant-list">

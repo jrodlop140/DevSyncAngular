@@ -8,22 +8,12 @@
   margin: 0 0 8px;
 }
 
-.subtitle {
-  color: #666;
-}
-
-.info-box {
-  padding: 16px;
-  border-radius: 12px;
-  background: #eef2ff;
-}
-
 .form-card {
   max-width: 720px;
   background: white;
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
 }
 
 .form-group {
@@ -37,27 +27,9 @@ label {
   font-weight: 600;
 }
 
-input,
-textarea,
-select {
-  border: 1px solid #dcdcdc;
-  border-radius: 10px;
-  padding: 12px;
-  font-size: 14px;
-  font-family: inherit;
-}
-
 small {
   margin-top: 6px;
   color: #c62828;
-}
-
-.error-box {
-  padding: 14px;
-  border-radius: 12px;
-  background: #fdecea;
-  color: #b3261e;
-  margin-bottom: 16px;
 }
 
 .button-row {
@@ -66,15 +38,22 @@ small {
   gap: 12px;
 }
 
-.primary-btn,
-.secondary-btn {
+.primary-btn {
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+  color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   padding: 12px 16px;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.primary-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+.secondary-btn {
+  background: #e2e8f0;
+  color: var(--text-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
 }

@@ -37,7 +37,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
     if (!currentUser) {
       this.loading = false;
-      this.errorMessage = 'No hay usuario autenticado.';
+      this.errorMessage = 'No authenticated user.';
       return;
     }
 
@@ -49,7 +49,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           this.loading = false;
         },
         error: () => {
-          this.errorMessage = 'No se pudieron cargar los proyectos.';
+          this.errorMessage = 'Could not load los proyectos.';
           this.loading = false;
         }
       });

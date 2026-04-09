@@ -149,7 +149,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     if (!currentUser) {
       this.loading = false;
-      this.errorMessage = 'No hay usuario autenticado.';
+      this.errorMessage = 'No authenticated user.';
       return;
     }
 
@@ -174,7 +174,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'No se pudieron cargar los proyectos.';
+          this.errorMessage = 'Could not load los proyectos.';
         }
       });
   }
@@ -203,7 +203,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.checkIfLoadingFinished();
         },
         error: () => {
-          this.errorMessage = 'No se pudieron cargar las solicitudes.';
+          this.errorMessage = 'Could not load las solicitudes.';
           this.loading = false;
         }
       });
@@ -233,7 +233,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.checkIfLoadingFinished();
         },
         error: () => {
-          this.errorMessage = 'No se pudieron cargar las tareas.';
+          this.errorMessage = 'Could not load las tareas.';
           this.loading = false;
         }
       });

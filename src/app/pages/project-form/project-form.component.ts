@@ -91,7 +91,7 @@ export class ProjectFormComponent implements OnInit {
     const currentUser = this.authService.getCurrentUser();
 
     if (!currentUser) {
-      this.errorMessage = 'No hay usuario autenticado.';
+      this.errorMessage = 'No authenticated user.';
       return;
     }
 

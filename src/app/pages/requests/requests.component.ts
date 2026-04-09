@@ -45,7 +45,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
     if (!currentUser) {
       this.loading = false;
-      this.errorMessage = 'No hay usuario autenticado.';
+      this.errorMessage = 'No authenticated user.';
       return;
     }
 
@@ -64,7 +64,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'No se pudieron cargar los proyectos.';
+          this.errorMessage = 'Could not load los proyectos.';
         }
       });
   }
@@ -87,7 +87,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'No se pudieron cargar las solicitudes.';
+          this.errorMessage = 'Could not load las solicitudes.';
         }
       });
   }

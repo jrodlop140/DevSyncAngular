@@ -1,13 +1,13 @@
 <div class="project-form-page">
   <div class="page-header">
-    <h1>{{ isEditMode ? 'Editar proyecto' : 'Nuevo proyecto' }}</h1>
+    <h1>{{ isEditMode ? 'Edit proyecto' : 'Nuevo proyecto' }}</h1>
     <div class="subtitle">
       {{ isEditMode ? 'Modifica la información del proyecto' : 'Crea un proyecto para empezar a gestionarlo desde el panel' }}
     </div>
   </div>
 
   @if (loadingProject) {
-    <div class="info-box">Cargando proyecto...</div>
+    <div class="info-box">Loading proyecto...</div>
   }
 
   @if (!loadingProject) {
@@ -23,7 +23,7 @@
         </div>
 
         <div class="form-group">
-          <label for="description">Descripción</label>
+          <label for="description">Description</label>
           <textarea id="description" rows="5" formControlName="description"></textarea>
 
           @if (projectForm.get('description')?.touched && projectForm.get('description')?.invalid) {
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group">
-          <label for="technologies">Tecnologías</label>
+          <label for="technologies">Technologies</label>
           <input
             id="technologies"
             type="text"
@@ -50,9 +50,9 @@
         }
 
         <div class="button-row">
-          <button type="button" class="secondary-btn" (click)="onCancel()">Cancelar</button>
+          <button type="button" class="secondary-btn" (click)="onCancel()">Cancel</button>
           <button type="submit" class="primary-btn" [disabled]="loading">
-            {{ loading ? (isEditMode ? 'Guardando...' : 'Creando...') : (isEditMode ? 'Guardar cambios' : 'Crear proyecto') }}
+            {{ loading ? (isEditMode ? 'Guardando...' : 'Creando...') : (isEditMode ? 'Save cambios' : 'Create proyecto') }}
           </button>
         </div>
       </form>

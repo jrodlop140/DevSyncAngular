@@ -5,7 +5,12 @@
   </div>
 
   @if (loading) {
-    <div class="info-box">Cargando estadísticas...</div>
+    <div class="info-box">
+      <div class="loading-state">
+        <div class="loading-spinner"></div>
+        <span>Loading estadísticas...</span>
+      </div>
+    </div>
   }
 
   @if (!loading && errorMessage) {
@@ -14,61 +19,59 @@
 
   @if (!loading && !errorMessage) {
     <div class="stats-grid">
-
-      <div class="stat-card">
-        <h2>Proyectos</h2>
+      <div class="stat-card surface-card">
+        <h2>Projects</h2>
         <div class="stat-value">{{ totalProjects }}</div>
         <div class="stat-label">Total de proyectos creados</div>
       </div>
 
-      <div class="stat-card">
-        <h2>Solicitudes</h2>
+      <div class="stat-card surface-card">
+        <h2>Requests</h2>
         <div class="stat-value">{{ totalRequests }}</div>
-        <div class="stat-label">Solicitudes totales</div>
+        <div class="stat-label">Requests totales</div>
       </div>
 
-      <div class="stat-card">
-        <h2>Solicitudes pendientes</h2>
+      <div class="stat-card surface-card accent-info">
+        <h2>Requests pendientes</h2>
         <div class="stat-value">{{ pendingRequests }}</div>
         <div class="stat-label">Pendientes de revisión</div>
       </div>
 
-      <div class="stat-card">
-        <h2>Solicitudes aceptadas</h2>
+      <div class="stat-card surface-card accent-success">
+        <h2>Requests aceptadas</h2>
         <div class="stat-value">{{ acceptedRequests }}</div>
-        <div class="stat-label">Solicitudes aprobadas</div>
+        <div class="stat-label">Requests aprobadas</div>
       </div>
 
-      <div class="stat-card">
-        <h2>Solicitudes rechazadas</h2>
+      <div class="stat-card surface-card accent-danger">
+        <h2>Requests rechazadas</h2>
         <div class="stat-value">{{ rejectedRequests }}</div>
-        <div class="stat-label">Solicitudes denegadas</div>
+        <div class="stat-label">Requests denegadas</div>
       </div>
 
-      <div class="stat-card">
-        <h2>Tareas</h2>
+      <div class="stat-card surface-card">
+        <h2>Tasks</h2>
         <div class="stat-value">{{ totalTasks }}</div>
-        <div class="stat-label">Tareas totales</div>
+        <div class="stat-label">Tasks totales</div>
       </div>
 
-      <div class="stat-card">
-        <h2>Tareas pendientes</h2>
+      <div class="stat-card surface-card accent-warning">
+        <h2>Tasks pendientes</h2>
         <div class="stat-value">{{ pendingTasks }}</div>
         <div class="stat-label">Aún no iniciadas</div>
       </div>
 
-      <div class="stat-card">
-        <h2>Tareas en progreso</h2>
+      <div class="stat-card surface-card accent-info">
+        <h2>Tasks en progreso</h2>
         <div class="stat-value">{{ inProgressTasks }}</div>
         <div class="stat-label">Actualmente activas</div>
       </div>
 
-      <div class="stat-card">
-        <h2>Tareas completadas</h2>
+      <div class="stat-card surface-card accent-success">
+        <h2>Tasks completadas</h2>
         <div class="stat-value">{{ doneTasks }}</div>
         <div class="stat-label">Finalizadas correctamente</div>
       </div>
-
     </div>
   }
 </div>

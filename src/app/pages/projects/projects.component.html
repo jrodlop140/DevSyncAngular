@@ -1,17 +1,22 @@
 <div class="projects-page">
   <div class="page-header">
     <div>
-      <h1>Mis proyectos</h1>
-      <div class="subtitle">Proyectos creados por el usuario autenticado</div>
+      <h1>My Projects</h1>
+      <div class="subtitle">Projects creados por el usuario autenticado</div>
     </div>
 
-    <button class="new-project-btn" (click)="goToCreateProject()">
+    <button class="new-project-btn primary-action" (click)="goToCreateProject()">
       Nuevo proyecto
     </button>
   </div>
 
   @if (loading) {
-    <div class="info-box">Cargando proyectos...</div>
+    <div class="info-box">
+      <div class="loading-state">
+        <div class="loading-spinner"></div>
+        <span>Loading proyectos...</span>
+      </div>
+    </div>
   }
 
   @if (!loading && errorMessage) {
@@ -19,29 +24,31 @@
   }
 
   @if (!loading && !errorMessage && projects.length === 0) {
-    <div class="info-box">Todavía no has creado ningún proyecto.</div>
+    <div class="info-box">You have not created any projects yet.</div>
   }
 
   @if (!loading && !errorMessage && projects.length > 0) {
     <div class="project-grid">
       @for (project of projects; track project.id) {
-        <div class="project-card">
-          <h2>{{ project.name }}</h2>
+        <div class="project-card surface-card">
+          <div class="project-card-header">
+            <h2>{{ project.name }}</h2>
+            <span class="project-status">{{ project.status }}</span>
+          </div>
 
           <div class="project-description">
             {{ project.description }}
           </div>
 
           <div class="project-meta">
-            <div><strong>Estado:</strong> {{ project.status }}</div>
-            <div><strong>Participantes:</strong> {{ getParticipantCount(project) }}</div>
-            <div><strong>Tecnologías:</strong> {{ project.technologies.join(', ') }}</div>
+            <div><strong>Participants:</strong> {{ getParticipantCount(project) }}</div>
+            <div><strong>Technologies:</strong> {{ project.technologies.join(', ') }}</div>
           </div>
 
           <div class="card-actions">
-            <button class="detail-btn" (click)="goToProjectDetail(project.id)">Detalle</button>
-            <button class="edit-btn" (click)="goToEditProject(project.id)">Editar</button>
-            <button class="delete-btn" (click)="deleteProject(project.id)">Eliminar</button>
+            <button class="ghost-action" (click)="goToProjectDetail(project.id)">Detalle</button>
+            <button class="secondary-action" (click)="goToEditProject(project.id)">Edit</button>
+            <button class="delete-btn" (click)="deleteProject(project.id)">Delete</button>
           </div>
         </div>
       }

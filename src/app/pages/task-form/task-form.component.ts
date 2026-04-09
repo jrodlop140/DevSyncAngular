@@ -48,7 +48,7 @@ export class TaskFormComponent implements OnInit {
   errorMessage: string = '';
 
   /**
-   * Proyectos creados por el usuario autenticado.
+   * Projects creados por el usuario autenticado.
    */
   projects: Project[] = [];
 
@@ -94,7 +94,7 @@ export class TaskFormComponent implements OnInit {
 
   if (!currentUser) {
     this.loadingProjects = false;
-    this.errorMessage = 'No hay usuario autenticado.';
+    this.errorMessage = 'No authenticated user.';
     return;
   }
 

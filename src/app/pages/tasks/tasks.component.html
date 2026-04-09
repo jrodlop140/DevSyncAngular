@@ -1,17 +1,22 @@
 <div class="tasks-page">
   <div class="page-header">
     <div>
-      <h1>Tareas</h1>
-      <div class="subtitle">Tareas asociadas a tus proyectos</div>
+      <h1>Tasks</h1>
+      <div class="subtitle">Tasks asociadas a tus proyectos</div>
     </div>
 
-    <button class="new-task-btn" (click)="goToCreateTask()">
+    <button class="new-task-btn primary-action" (click)="goToCreateTask()">
       Nueva tarea
     </button>
   </div>
 
   @if (loading) {
-    <div class="info-box">Cargando tareas...</div>
+    <div class="info-box">
+      <div class="loading-state">
+        <div class="loading-spinner"></div>
+        <span>Loading tareas...</span>
+      </div>
+    </div>
   }
 
   @if (!loading && errorMessage) {
@@ -25,7 +30,7 @@
   @if (!loading && !errorMessage && tasks.length > 0) {
     <div class="task-grid">
       @for (task of tasks; track task.id) {
-        <div class="task-card">
+        <div class="task-card surface-card">
           <div class="task-card-header">
             <h2>{{ task.title }}</h2>
             <span class="status-badge" [ngClass]="getStatusClass(task)">
@@ -38,24 +43,24 @@
           </div>
 
           <div class="task-meta">
-            <div><strong>Proyecto:</strong> {{ getProjectName(task.projectId) }}</div>
+            <div><strong>Project:</strong> {{ getProjectName(task.projectId) }}</div>
             <div><strong>Asignado a:</strong> {{ getUserName(task.assignedDeveloper) }}</div>
             <div><strong>Fecha:</strong> {{ formatDate(task.createdAt) }}</div>
           </div>
 
           <div class="task-actions">
             @if (canAdvanceStatus(task)) {
-              <button class="status-action-btn" (click)="advanceTaskStatus(task)">
+              <button class="status-action-btn primary-action" (click)="advanceTaskStatus(task)">
                 {{ getStatusActionLabel(task) }}
               </button>
             }
 
-            <button class="edit-btn" (click)="editTask(task.id)">
-              ✏️ Editar
+            <button class="secondary-action" (click)="editTask(task.id)">
+              ✏️ Edit
             </button>
 
             <button class="delete-btn" (click)="deleteTask(task.id)">
-              🗑️ Eliminar
+              🗑️ Delete
             </button>
           </div>
         </div>
