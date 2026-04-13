@@ -27,7 +27,39 @@
         <div class="request-card surface-card">
           <div class="request-main">
             <h2>{{ getProjectName(request.projectId) }}</h2>
-            <div><strong>Solicitante:</strong> {{ getUserName(request.developerId) }}</div>
+
+            <div class="request-user-block">
+              @if (getUserPhoto(request.developerId)) {
+                <img
+                  class="user-photo"
+                  [src]="getUserPhoto(request.developerId)"
+                  alt="Foto de perfil del solicitante"
+                />
+              }
+
+              <div class="request-user-info">
+                <div><strong>Solicitante:</strong> {{ getUserName(request.developerId) }}</div>
+
+                @if (getUserEmail(request.developerId)) {
+                  <div><strong>Email:</strong> {{ getUserEmail(request.developerId) }}</div>
+                }
+
+                <div class="skills-block">
+                  <strong>Habilidades:</strong>
+
+                  @if (getUserSkills(request.developerId).length > 0) {
+                    <div class="skills-list">
+                      @for (skill of getUserSkills(request.developerId); track skill) {
+                        <span class="skill-badge">{{ skill }}</span>
+                      }
+                    </div>
+                  } @else {
+                    <div class="no-skills">No especificadas.</div>
+                  }
+                </div>
+              </div>
+            </div>
+
             <div><strong>Status:</strong> <span class="request-state">{{ request.state }}</span></div>
             <div><strong>Fecha:</strong> {{ formatDate(request.createdAt) }}</div>
           </div>

@@ -33,6 +33,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
 
   projectNames: Record<string, string> = {};
   userNames: Record<string, string> = {};
+  userEmails: Record<string, string> = {};
+  userSkills: Record<string, string[]> = {};
+  userPhotos: Record<string, string> = {};
 
   private requestsSubscription?: Subscription;
   private projectsSubscription?: Subscription;
@@ -103,6 +106,9 @@ export class RequestsComponent implements OnInit, OnDestroy {
       if (!this.userNames[id]) {
         const user = await this.userService.getUserById(id);
         this.userNames[id] = user?.name || id;
+        this.userEmails[id] = user?.email || '';
+        this.userSkills[id] = Array.isArray(user?.skills) ? user.skills : [];
+        this.userPhotos[id] = user?.photo || '';
       }
     }
   }
@@ -124,6 +130,33 @@ export class RequestsComponent implements OnInit, OnDestroy {
   getUserName(userId: string): string {
     return this.userNames[userId] || userId;
   }
+
+  /**
+   * Devuelve el email del usuario solicitante.
+   * @param userId identificador del usuario
+   * @returns  email del usuario
+   */
+  getUserEmail(userId: string): string {
+  return this.userEmails[userId] || '';
+}
+
+/**
+ * Devuelve las habilidades del usuario solicitante.
+ * @param userId identificador del usuario
+ * @returns  habilidades del usuario
+ */
+getUserSkills(userId: string): string[] {
+  return this.userSkills[userId] || [];
+}
+
+/**
+ * Devuelve la foto del usuario solicitante.
+ * @param userId identificador del usuario
+ * @returns  foto del usuario
+ */
+getUserPhoto(userId: string): string {
+  return this.userPhotos[userId] || '';
+}
 
   /**
    * Formatea una fecha en timestamp.
