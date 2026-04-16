@@ -1,14 +1,14 @@
 <div class="requests-page">
   <div class="page-header">
     <h1>Requests</h1>
-    <div class="subtitle">Requests de acceso a tus proyectos</div>
+    <div class="subtitle">Requests to access your projects</div>
   </div>
 
   @if (loading) {
     <div class="info-box">
       <div class="loading-state">
         <div class="loading-spinner"></div>
-        <span>Loading solicitudes...</span>
+        <span>Loading requests...</span>
       </div>
     </div>
   }
@@ -18,7 +18,7 @@
   }
 
   @if (!loading && !errorMessage && requests.length === 0) {
-    <div class="info-box">No hay solicitudes para tus proyectos.</div>
+    <div class="info-box">No requests for your projects.</div>
   }
 
   @if (!loading && !errorMessage && requests.length > 0) {
@@ -33,19 +33,19 @@
                 <img
                   class="user-photo"
                   [src]="getUserPhoto(request.developerId)"
-                  alt="Foto de perfil del solicitante"
+                  alt="Requester's profile picture"
                 />
               }
 
               <div class="request-user-info">
-                <div><strong>Solicitante:</strong> {{ getUserName(request.developerId) }}</div>
+                <div><strong>Requester:</strong> {{ getUserName(request.developerId) }}</div>
 
                 @if (getUserEmail(request.developerId)) {
                   <div><strong>Email:</strong> {{ getUserEmail(request.developerId) }}</div>
                 }
 
                 <div class="skills-block">
-                  <strong>Habilidades:</strong>
+                  <strong>Skills:</strong>
 
                   @if (getUserSkills(request.developerId).length > 0) {
                     <div class="skills-list">
@@ -54,7 +54,7 @@
                       }
                     </div>
                   } @else {
-                    <div class="no-skills">No especificadas.</div>
+                    <div class="no-skills">Not specified.</div>
                   }
                 </div>
               </div>
@@ -66,8 +66,8 @@
 
           @if (isPending(request)) {
             <div class="card-actions">
-              <button class="accept-btn" (click)="acceptRequest(request)">Aceptar</button>
-              <button class="reject-btn" (click)="rejectRequest(request)">Rechazar</button>
+              <button class="accept-btn" (click)="acceptRequest(request)">Accept</button>
+              <button class="reject-btn" (click)="rejectRequest(request)">Reject</button>
             </div>
           }
         </div>

@@ -49,7 +49,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
           this.loading = false;
         },
         error: () => {
-          this.errorMessage = 'Could not load los proyectos.';
+          this.errorMessage = 'Could not load the projects.';
           this.loading = false;
         }
       });
@@ -103,7 +103,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
    * @return promesa de ejecución
    */
   async deleteProject(projectId: string): Promise<void> {
-    const confirmed = window.confirm('¿Seguro que deseas eliminar este proyecto?');
+    const confirmed = window.confirm('Are you sure you want to delete this project?');
 
     if (!confirmed) {
       return;
@@ -112,7 +112,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     try {
       await this.projectService.deleteProject(projectId);
     } catch {
-      this.errorMessage = 'No se pudo eliminar el proyecto.';
+      this.errorMessage = 'Could not delete the project.';
     }
   }
 }

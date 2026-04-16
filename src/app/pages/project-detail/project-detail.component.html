@@ -1,15 +1,15 @@
 <div class="project-detail-page">
   <div class="page-header">
     <div>
-      <h1>Detalle del proyecto</h1>
-      <div class="subtitle">Información completa del proyecto seleccionado</div>
+      <h1>Project detail</h1>
+      <div class="subtitle">Complete information of the selected project</div>
     </div>
 
-    <button class="back-btn" (click)="goBack()">Volver</button>
+    <button class="back-btn" (click)="goBack()">Back</button>
   </div>
 
   @if (loading) {
-    <div class="info-box">Loading proyecto...</div>
+    <div class="info-box">Loading project...</div>
   }
 
   @if (!loading && errorMessage) {
@@ -24,11 +24,11 @@
       </div>
 
       <div class="detail-section">
-        <h3>Información general</h3>
+        <h3>General information</h3>
         <div class="detail-row"><strong>Status:</strong> {{ project.status }}</div>
-        <div class="detail-row"><strong>Creador:</strong> {{ creatorName }}</div>
-        <div class="detail-row"><strong>Fecha de creación:</strong> {{ formatDate(project.createdAt) }}</div>
-        <div class="detail-row"><strong>Número de participantes:</strong> {{ getParticipantCount() }}</div>
+        <div class="detail-row"><strong>Creator:</strong> {{ creatorName }}</div>
+        <div class="detail-row"><strong>Creation date:</strong> {{ formatDate(project.createdAt) }}</div>
+        <div class="detail-row"><strong>Number of participants:</strong> {{ getParticipantCount() }}</div>
       </div>
 
       <div class="detail-section">
@@ -41,7 +41,7 @@
             }
           </div>
         } @else {
-          <div class="empty-text">No hay tecnologías registradas.</div>
+          <div class="empty-text">No technologies registered.</div>
         }
       </div>
 
@@ -55,7 +55,7 @@
             }
           </ul>
         } @else {
-          <div class="empty-text">No hay participantes registrados.</div>
+          <div class="empty-text">No participants registered.</div>
         }
       </div>
     </div>

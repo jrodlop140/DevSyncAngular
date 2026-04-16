@@ -67,7 +67,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'Could not load los proyectos.';
+          this.errorMessage = 'Could not load the projects.';
         }
       });
   }
@@ -90,7 +90,7 @@ export class RequestsComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'Could not load las solicitudes.';
+          this.errorMessage = 'Could not load the requests.';
         }
       });
   }
@@ -185,7 +185,7 @@ getUserPhoto(userId: string): string {
       await this.requestService.updateRequestState(request.id, RequestState.ACCEPTED);
       await this.projectService.addParticipantToProject(request.projectId, request.developerId);
     } catch {
-      this.errorMessage = 'No se pudo aceptar la solicitud.';
+      this.errorMessage = 'Could not accept the request.';
     }
   }
 
@@ -198,7 +198,7 @@ getUserPhoto(userId: string): string {
     try {
       await this.requestService.updateRequestState(request.id, RequestState.REJECTED);
     } catch {
-      this.errorMessage = 'No se pudo rechazar la solicitud.';
+      this.errorMessage = 'Could not reject the request.';
     }
   }
 

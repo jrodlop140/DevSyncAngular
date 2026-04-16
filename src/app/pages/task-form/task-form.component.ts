@@ -112,7 +112,7 @@ export class TaskFormComponent implements OnInit {
     }
 
   } catch {
-    this.errorMessage = 'Error al cargar datos.';
+    this.errorMessage = 'Error loading data.';
   } finally {
     this.loadingProjects = false;
   }
@@ -209,7 +209,7 @@ export class TaskFormComponent implements OnInit {
     await this.router.navigateByUrl('/tasks');
 
   } catch {
-    this.errorMessage = 'Error al guardar la tarea.';
+    this.errorMessage = 'Error saving the task.';
   } finally {
     this.loading = false;
   }
@@ -224,7 +224,7 @@ async loadTaskData(taskId: string): Promise<void> {
   const task = await this.taskService.getTaskById(taskId);
 
   if (!task) {
-    this.errorMessage = 'La tarea no existe.';
+    this.errorMessage = 'The task does not exist.';
     return;
   }
 

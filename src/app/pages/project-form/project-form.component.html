@@ -1,24 +1,24 @@
 <div class="project-form-page">
   <div class="page-header">
-    <h1>{{ isEditMode ? 'Edit proyecto' : 'Nuevo proyecto' }}</h1>
+    <h1>{{ isEditMode ? 'Edit project' : 'New project' }}</h1>
     <div class="subtitle">
-      {{ isEditMode ? 'Modifica la información del proyecto' : 'Crea un proyecto para empezar a gestionarlo desde el panel' }}
+      {{ isEditMode ? 'Modify the project information' : 'Create a project to start managing it from the panel' }}
     </div>
   </div>
 
   @if (loadingProject) {
-    <div class="info-box">Loading proyecto...</div>
+    <div class="info-box">Loading project...</div>
   }
 
   @if (!loadingProject) {
     <div class="form-card">
       <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="name">Nombre</label>
+          <label for="name">Name</label>
           <input id="name" type="text" formControlName="name" />
 
           @if (projectForm.get('name')?.touched && projectForm.get('name')?.invalid) {
-            <small>El nombre es obligatorio y no puede superar los 50 caracteres.</small>
+            <small>The name is required and cannot exceed 50 characters.</small>
           }
         </div>
 
@@ -27,7 +27,7 @@
           <textarea id="description" rows="5" formControlName="description"></textarea>
 
           @if (projectForm.get('description')?.touched && projectForm.get('description')?.invalid) {
-            <small>La descripción es obligatoria y no puede superar los 250 caracteres.</small>
+            <small>The description is required and cannot exceed 250 characters.</small>
           }
         </div>
 
@@ -41,7 +41,7 @@
           />
 
           @if (projectForm.get('technologies')?.touched && projectForm.get('technologies')?.invalid) {
-            <small>Introduce al menos una tecnología.</small>
+            <small>Enter at least one technology.</small>
           }
         </div>
 
@@ -52,7 +52,7 @@
         <div class="button-row">
           <button type="button" class="secondary-btn" (click)="onCancel()">Cancel</button>
           <button type="submit" class="primary-btn" [disabled]="loading">
-            {{ loading ? (isEditMode ? 'Guardando...' : 'Creando...') : (isEditMode ? 'Save cambios' : 'Create proyecto') }}
+            {{ loading ? (isEditMode ? 'Saving...' : 'Creating...') : (isEditMode ? 'Save changes' : 'Create project') }}
           </button>
         </div>
       </form>

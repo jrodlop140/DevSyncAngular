@@ -126,7 +126,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'Could not load los proyectos.';
+          this.errorMessage = 'Could not load the projects.';
         }
       });
   }
@@ -150,7 +150,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.loading = false;
-          this.errorMessage = 'Could not load las tareas.';
+          this.errorMessage = 'Could not load the tasks.';
         }
       });
   }
@@ -248,7 +248,7 @@ export class TasksComponent implements OnInit, OnDestroy {
    * @return promesa de ejecución
    */
   async deleteTask(taskId: string): Promise<void> {
-    if (!confirm('¿Delete esta tarea?')) {
+    if (!confirm('Delete this task?')) {
       return;
     }
 
@@ -286,11 +286,11 @@ export class TasksComponent implements OnInit, OnDestroy {
    */
   getStatusActionLabel(task: Task): string {
     if (task.status === TaskStatus.PENDING) {
-      return 'Empezar';
+      return 'Start';
     }
 
     if (task.status === TaskStatus.IN_PROGRESS) {
-      return 'Completar';
+      return 'Complete';
     }
 
     return '';
@@ -321,7 +321,7 @@ export class TasksComponent implements OnInit, OnDestroy {
         await this.taskService.updateTaskStatus(task.id, TaskStatus.DONE);
       }
     } catch {
-      this.errorMessage = 'No se pudo actualizar el estado de la tarea.';
+      this.errorMessage = 'Could not update the task status.';
     }
   }
 

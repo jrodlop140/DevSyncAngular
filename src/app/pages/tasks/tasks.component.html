@@ -2,11 +2,11 @@
   <div class="page-header">
     <div>
       <h1>Tasks</h1>
-      <div class="subtitle">Tasks asociadas a tus proyectos</div>
+      <div class="subtitle">Tasks associated with your projects</div>
     </div>
 
     <button class="new-task-btn primary-action" (click)="goToCreateTask()">
-      Nueva tarea
+      New task
     </button>
   </div>
 
@@ -14,7 +14,7 @@
     <div class="info-box">
       <div class="loading-state">
         <div class="loading-spinner"></div>
-        <span>Loading tareas...</span>
+        <span>Loading tasks...</span>
       </div>
     </div>
   }
@@ -24,7 +24,7 @@
   }
 
   @if (!loading && !errorMessage && tasks.length === 0) {
-    <div class="info-box">No hay tareas en tus proyectos.</div>
+    <div class="info-box">There are no tasks in your projects.</div>
   }
 
   @if (!loading && !errorMessage && tasks.length > 0) {
@@ -44,8 +44,8 @@
 
           <div class="task-meta">
             <div><strong>Project:</strong> {{ getProjectName(task.projectId) }}</div>
-            <div><strong>Asignado a:</strong> {{ getUserName(task.assignedDeveloper) }}</div>
-            <div><strong>Fecha:</strong> {{ formatDate(task.createdAt) }}</div>
+            <div><strong>Assigned to:</strong> {{ getUserName(task.assignedDeveloper) }}</div>
+            <div><strong>Date:</strong> {{ formatDate(task.createdAt) }}</div>
           </div>
 
           <div class="task-actions">

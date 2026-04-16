@@ -2,11 +2,11 @@
   <div class="page-header">
     <div>
       <h1>My Projects</h1>
-      <div class="subtitle">Projects creados por el usuario autenticado</div>
+      <div class="subtitle">Projects created by the authenticated user</div>
     </div>
 
     <button class="new-project-btn primary-action" (click)="goToCreateProject()">
-      Nuevo proyecto
+      New project
     </button>
   </div>
 
@@ -14,7 +14,7 @@
     <div class="info-box">
       <div class="loading-state">
         <div class="loading-spinner"></div>
-        <span>Loading proyectos...</span>
+        <span>Loading projects...</span>
       </div>
     </div>
   }
@@ -46,7 +46,7 @@
           </div>
 
           <div class="card-actions">
-            <button class="ghost-action" (click)="goToProjectDetail(project.id)">Detalle</button>
+            <button class="ghost-action" (click)="goToProjectDetail(project.id)">Detail</button>
             <button class="secondary-action" (click)="goToEditProject(project.id)">Edit</button>
             <button class="delete-btn" (click)="deleteProject(project.id)">Delete</button>
           </div>

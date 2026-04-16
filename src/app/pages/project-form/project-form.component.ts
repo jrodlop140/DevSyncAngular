@@ -58,7 +58,7 @@ export class ProjectFormComponent implements OnInit {
         const project = await this.projectService.getProjectById(id);
 
         if (!project) {
-          this.errorMessage = 'No se encontró el proyecto.';
+          this.errorMessage = 'Project not found.';
           this.loadingProject = false;
           return;
         }
@@ -69,7 +69,7 @@ export class ProjectFormComponent implements OnInit {
           technologies: project.technologies.join(', ')
         });
       } catch {
-        this.errorMessage = 'No se pudo cargar el proyecto.';
+        this.errorMessage = 'Could not load the project.';
       } finally {
         this.loadingProject = false;
       }
@@ -105,7 +105,7 @@ export class ProjectFormComponent implements OnInit {
         const existingProject = await this.projectService.getProjectById(this.projectId);
 
         if (!existingProject) {
-          this.errorMessage = 'No se encontró el proyecto.';
+          this.errorMessage = 'Project not found.';
           this.loading = false;
           return;
         }
@@ -139,8 +139,8 @@ export class ProjectFormComponent implements OnInit {
       await this.router.navigateByUrl('/projects');
     } catch {
       this.errorMessage = this.isEditMode
-        ? 'No se pudo actualizar el proyecto.'
-        : 'No se pudo crear el proyecto.';
+        ? 'Could not update the project.'
+        : 'Could not create the project.';
     } finally {
       this.loading = false;
     }

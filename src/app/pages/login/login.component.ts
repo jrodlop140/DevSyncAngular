@@ -62,13 +62,13 @@ export class LoginComponent {
   private mapFirebaseError(code: string): string {
     switch (code) {
       case 'auth/invalid-credential':
-        return 'Credenciales incorrectas.';
+        return 'Incorrect credentials.';
       case 'auth/user-disabled':
-        return 'Usuario deshabilitado.';
+        return 'User disabled.';
       case 'auth/too-many-requests':
-        return 'Demasiados intentos. Inténtalo más tarde.';
+        return 'Too many attempts. Try again later.';
       default:
-        return 'No se pudo iniciar sesión.';
+        return 'Could not log in.';
     }
   }
 }

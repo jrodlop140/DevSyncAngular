@@ -39,7 +39,7 @@ export class ProjectDetailComponent implements OnInit {
 
       if (!projectId) {
         this.loading = false;
-        this.errorMessage = 'No se ha indicado un proyecto.';
+        this.errorMessage = 'No project has been specified.';
         return;
       }
 
@@ -50,7 +50,7 @@ export class ProjectDetailComponent implements OnInit {
         const project = await this.projectService.getProjectById(projectId);
 
         if (!project) {
-          this.errorMessage = 'No se encontró el proyecto.';
+          this.errorMessage = 'Project not found.';
           this.loading = false;
           return;
         }
@@ -60,7 +60,7 @@ export class ProjectDetailComponent implements OnInit {
         await this.loadCreatorName();
         await this.loadParticipantNames();
       } catch {
-        this.errorMessage = 'No se pudo cargar el proyecto.';
+        this.errorMessage = 'Could not load the project.';
       } finally {
         this.loading = false;
       }
@@ -73,7 +73,7 @@ export class ProjectDetailComponent implements OnInit {
    */
   async loadCreatorName(): Promise<void> {
     if (!this.project?.creator) {
-      this.creatorName = 'Desconocido';
+      this.creatorName = 'Unknown';
       return;
     }
 

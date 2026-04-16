@@ -1,11 +1,11 @@
 <div class="task-form-page">
   <div class="page-header">
-    <h1>{{ isEditMode ? 'Edit tarea' : 'Nueva tarea' }}</h1>
-    <div class="subtitle">Crea una tarea y asígnala a un participante del proyecto</div>
+    <h1>{{ isEditMode ? 'Edit task' : 'New task' }}</h1>
+    <div class="subtitle">Create a task and assign it to a project participant</div>
   </div>
 
   @if (loadingProjects) {
-    <div class="info-box">Loading proyectos...</div>
+    <div class="info-box">Loading projects...</div>
   }
 
   @if (!loadingProjects) {
@@ -13,11 +13,11 @@
       <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
 
         <div class="form-group">
-          <label for="title">Título</label>
+          <label for="title">Title</label>
           <input id="title" type="text" formControlName="title" />
 
           @if (taskForm.get('title')?.touched && taskForm.get('title')?.invalid) {
-            <small>El título es obligatorio y no puede superar los 80 caracteres.</small>
+            <small>The title is required and cannot exceed 80 characters.</small>
           }
         </div>
 
@@ -26,14 +26,14 @@
           <textarea id="description" rows="5" formControlName="description"></textarea>
 
           @if (taskForm.get('description')?.touched && taskForm.get('description')?.invalid) {
-            <small>La descripción es obligatoria y no puede superar los 250 caracteres.</small>
+            <small>The description is required and cannot exceed 250 characters.</small>
           }
         </div>
 
         <div class="form-group">
           <label for="projectId">Project</label>
           <select id="projectId" formControlName="projectId" (change)="onProjectChange($event)">
-            <option value="">Selecciona un proyecto</option>
+            <option value="">Select a project</option>
 
             @for (project of projects; track project.id) {
               <option [value]="project.id">{{ project.name }}</option>
@@ -41,14 +41,14 @@
           </select>
 
           @if (taskForm.get('projectId')?.touched && taskForm.get('projectId')?.invalid) {
-            <small>Debes seleccionar un proyecto.</small>
+            <small>You must select a project.</small>
           }
         </div>
 
         <div class="form-group">
-          <label for="assignedDeveloper">Asignar a</label>
+          <label for="assignedDeveloper">Assign to</label>
           <select id="assignedDeveloper" formControlName="assignedDeveloper">
-            <option value="">Selecciona un participante</option>
+            <option value="">Select a participant</option>
 
             @for (participantId of availableParticipants; track participantId) {
               <option [value]="participantId">
@@ -58,7 +58,7 @@
           </select>
 
           @if (taskForm.get('assignedDeveloper')?.touched && taskForm.get('assignedDeveloper')?.invalid) {
-            <small>Debes seleccionar un participante.</small>
+            <small>You must select a participant.</small>
           }
         </div>
 
@@ -69,7 +69,7 @@
         <div class="button-row">
           <button type="button" class="secondary-btn" (click)="onCancel()">Cancel</button>
           <button type="submit" class="primary-btn" [disabled]="loading">
-            {{ loading ? 'Guardando...' : 'Create tarea' }}
+            {{ loading ? 'Saving...' : 'Create task' }}
           </button>
         </div>
       </form>
