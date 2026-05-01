@@ -3,6 +3,8 @@
   display: grid;
   grid-template-columns: 250px 1fr;
   background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
+  height: 100vh;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -13,6 +15,9 @@
   flex-direction: column;
   gap: 24px;
   box-shadow: 10px 0 28px rgba(15, 23, 42, 0.12);
+  overflow-y: auto;
+  overscroll-behavior: auto;
+  padding-bottom: 40px;
 }
 
 .sidebar-header {
@@ -75,16 +80,82 @@
 
 .content {
   padding: 28px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
-@media (max-width: 900px) {
+/* Botón hamburguesa: oculto en desktop */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* Topbar: oculta en desktop */
+.topbar {
+  display: none;
+}
+
+.sidebar-offcanvas {
+  width: 260px !important;
+  border: none !important;
+}
+
+.sidebar-offcanvas .offcanvas-body {
+  padding: 0;
+}
+
+@media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
   }
 
-  .sidebar {
-    position: sticky;
+  /* Sidebar desktop oculto en móvil */
+  .sidebar-desktop {
+    display: none;
+  }
+
+  /* Topbar visible en móvil */
+  .topbar {
+    display: flex;
+    align-items: center;
+    position: fixed;
     top: 0;
-    z-index: 10;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: #0f172a;
+    padding: 0 16px;
+    z-index: 150;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.2);
+  }
+
+  /* Botón hamburguesa visible en móvil */
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .content {
+    padding: 84px 18px 28px;
+    overflow-y: visible;
+    height: auto;
   }
 }

@@ -1,21 +1,46 @@
 <div class="layout">
-  <aside class="sidebar">
+
+  <!-- Topbar: solo visible en móvil -->
+  <div class="topbar">
+    <button class="hamburger-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar-offcanvas">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Sidebar desktop: visible solo en desktop -->
+  <aside class="sidebar sidebar-desktop">
     <div class="sidebar-header">
       <h2>DevSync</h2>
       <div class="sidebar-subtitle">Panel de gestión</div>
     </div>
-
     <nav class="sidebar-nav">
       <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
       <a routerLink="/projects" routerLinkActive="active">Projects</a>
       <a routerLink="/requests" routerLinkActive="active">Requests</a>
       <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
     </nav>
-
     <button class="logout-btn" (click)="logout()">Log out</button>
   </aside>
+
+  <!-- Sidebar móvil: offcanvas de Bootstrap -->
+  <div class="offcanvas offcanvas-start sidebar-offcanvas" tabindex="-1" id="sidebar-offcanvas">
+    <div class="offcanvas-body sidebar">
+      <div class="sidebar-header">
+        <h2>DevSync</h2>
+        <div class="sidebar-subtitle">Panel de gestión</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        <a routerLink="/projects" routerLinkActive="active">Projects</a>
+        <a routerLink="/requests" routerLinkActive="active">Requests</a>
+        <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
+      </nav>
+      <button class="logout-btn" (click)="logout()">Log out</button>
+    </div>
+  </div>
 
   <main class="content">
     <router-outlet></router-outlet>
   </main>
+
 </div>
