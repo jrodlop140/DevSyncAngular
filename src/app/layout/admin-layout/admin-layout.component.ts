@@ -23,6 +23,14 @@ export class AdminLayoutComponent {
    * @return promesa de ejecución
    */
   async logout(): Promise<void> {
+    // Cerrar el offcanvas si está abierto (para móvil)
+    const offcanvas = document.getElementById('sidebar-offcanvas');
+    if (offcanvas && offcanvas.classList.contains('show')) {
+      const bsOffcanvas = (window as any).bootstrap?.Offcanvas?.getInstance(offcanvas);
+      if (bsOffcanvas) {
+        bsOffcanvas.hide();
+      }
+    }
     await this.authService.logout();
     await this.router.navigateByUrl('/login');
   }
