@@ -73,6 +73,7 @@ export class TaskFormComponent implements OnInit {
    */
   isEditMode: boolean = false;  
   taskId: string | null = null;
+  loadedTask: Task | null = null;
 
   /**
    * Formulario reactivo para crear una tarea.
@@ -192,6 +193,8 @@ export class TaskFormComponent implements OnInit {
 
   if (this.isEditMode && this.taskId) {
     task.id = this.taskId;
+    task.createdAt = this.loadedTask!.createdAt;
+    task.creationDate = this.loadedTask!.creationDate;
   } else {
     task.createdAt = Date.now();
     task.creationDate = new Date().toLocaleDateString('es-ES');
@@ -227,6 +230,8 @@ async loadTaskData(taskId: string): Promise<void> {
     this.errorMessage = 'The task does not exist.';
     return;
   }
+
+  this.loadedTask = task;
 
   this.taskForm.patchValue({
     title: task.title,
