@@ -1,59 +1,79 @@
-# DevSync
+#### 🌐 DevSync Web — Panel de Administración Multiplataforma
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+**DevSync Web** es la aplicación frontend del ecosistema **DevSync**, diseñada para gestionar de forma centralizada proyectos, tareas, colaboradores y solicitudes de equipo en tiempo real, sincronizada mediante cuenta única con su aplicación móvil nativa en Android. 
 
-## Development server
+🚀 **Web en producción:** [https://devsyncweb.com](/url?sa=i&source=web&rct=j&url=https://devsyncweb.com&ved=2ahUKEwj27daZi5-YAxXsnf0HHeloDqQQy_kOegYIAggPEAs&opi=89978449&cd&psig=AOvVaw2OWG5PRqipZgCpIYAiJMz8&ust=1795557535142000)
+📱 **Repositorio hermano (App Android):** [github.com/jrodlop140/DevSyncAndroid](/url?sa=i&source=web&rct=j&url=https://github.com/jrodlop140/DevSyncAndroid&ved=2ahUKEwj27daZi5-YAxXsnf0HHeloDqQQy_kOegYIAggPEAw&opi=89978449&cd&psig=AOvVaw2OWG5PRqipZgCpIYAiJMz8&ust=1795557535142000) 
 
-To start a local development server, run:
+#### 🔑 Acceso Demo en Vivo (Sincronizado Web y Android)
 
-```bash
+Puedes probar todas las funcionalidades del panel de administración web y comprobar la sincronización en tiempo real con la app móvil usando esta cuenta de demostración: 
+
+* **URL de acceso:** [https://devsyncweb.com](/url?sa=i&source=web&rct=j&url=https://devsyncweb.com&ved=2ahUKEwj27daZi5-YAxXsnf0HHeloDqQQy_kOegYIAggPEBY&opi=89978449&cd&psig=AOvVaw2OWG5PRqipZgCpIYAiJMz8&ust=1795557535142000)
+* **Usuario / Correo demo:** demo@devsyncweb.com
+* **Contraseña:** 123456
+
+*(Nota: Cuenta única sincronizada con datos precargados para probar el CRUD completo en ambas plataformas).* 
+
+#### ✨ Funcionalidades del Panel Web
+
+* **CRUD Completo de Proyectos:** Creación, edición, consulta y eliminación de proyectos activos.
+* **Gestión de Tareas:** Alta, asignación, cambio de estado y seguimiento de tareas asociadas a cada proyecto.
+* **Administración de Colaboradores:** Gestión de miembros del equipo y permisos dentro de cada espacio de trabajo.
+* **Flujo de Solicitudes:** Recepción, revisión y aceptación/rechazo de solicitudes de incorporación de usuarios.
+* **Sincronización Multiplataforma:** Cualquier cambio realizado desde el panel web se refleja automáticamente en la aplicación móvil Android al iniciar sesión con la misma cuenta.
+
+#### 🛠️ Stack Tecnológico
+
+* **Framework:** Angular
+* **Lenguajes:** TypeScript, HTML5, CSS3
+* **Arquitectura:** Modular con tipado estático, consumo de APIs RESTful y control de rutas protegidas
+* **Control de Versiones:** Git & GitHub
+
+#### 📸 Capturas de Pantalla
+
+*(Arrastra aquí tus capturas del panel web al editar este archivo en GitHub)* 
+
+* **Vista del Dashboard y CRUD de Proyectos**
+* **Panel de Gestión de Tareas y Colaboradores**
+
+#### ⚙️ Instalación y Ejecución en Local
+
+1. **Clonar el repositorio:** 
+
+bash
+
+git clone https://github.com/jrodlop140/DevSyncAngular.git
+cd DevSyncAngular
+
+Usa el código con precaución.
+
+Copiar texto del código en el portapapeles.
+2. **Instalar dependencias:** 
+
+bash
+
+npm install
+
+Usa el código con precaución.
+
+Copiar texto del código en el portapapeles.
+3. **Arrancar el servidor de desarrollo:** 
+
+bash
+
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Usa el código con precaución.
 
-## Code scaffolding
+Copiar texto del código en el portapapeles.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Accede desde tu navegador a http://localhost:4200/.
 
-```bash
-ng generate component component-name
-```
+#### 👨‍💻 Autor
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+**Julio Rodríguez López** — Desarrollador Junior Full Stack & Multiplataforma (DAM) 
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+* **LinkedIn:** [linkedin.com/in/julio-desarrollador-multiplataforma](/url?sa=i&source=web&rct=j&url=https://www.linkedin.com/in/julio-desarrollador-multiplataforma&ved=2ahUKEwj27daZi5-YAxXsnf0HHeloDqQQy_kOegYIAggPEHY&opi=89978449&cd&psig=AOvVaw2OWG5PRqipZgCpIYAiJMz8&ust=1795557535142000)
+* **GitHub:** [@jrodlop140](/url?sa=i&source=web&rct=j&url=https://github.com/jrodlop140&ved=2ahUKEwj27daZi5-YAxXsnf0HHeloDqQQy_kOegYIAggPEHo&opi=89978449&cd&psig=AOvVaw2OWG5PRqipZgCpIYAiJMz8&ust=1795557535142000)
+* **Email:** jrlopez140.dev@gmail.com
