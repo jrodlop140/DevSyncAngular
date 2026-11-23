@@ -30,13 +30,6 @@ Puedes probar todas las funcionalidades del panel de administración web y compr
 * **Arquitectura:** Modular con tipado estático, consumo de APIs RESTful y control de rutas protegidas
 * **Control de Versiones:** Git & GitHub
 
-#### 📸 Capturas de Pantalla
-
-*(Arrastra aquí tus capturas del panel web al editar este archivo en GitHub)* 
-
-* **Vista del Dashboard y CRUD de Proyectos**
-* **Panel de Gestión de Tareas y Colaboradores**
-
 #### ⚙️ Instalación y Ejecución en Local
 
 1. **Clonar el repositorio:** 
